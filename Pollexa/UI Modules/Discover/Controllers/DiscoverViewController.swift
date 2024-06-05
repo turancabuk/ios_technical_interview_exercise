@@ -11,7 +11,8 @@ class DiscoverViewController: UIViewController {
 
     // MARK: - Properties
     private let postProvider = PostProvider.shared
-
+    private let viewModel: PollViewModel!
+    
     // Lazy initialization for optimal memory usage
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -37,6 +38,20 @@ class DiscoverViewController: UIViewController {
             case .failure(let error):
                 debugPrint(error.localizedDescription)
             }
+        }
+    }
+}
+extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.numberOfPosts
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PollCollectionViewCell", for: indexPath) as? PollCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        if let viewModel {
+            let post = viewModel.post(at: indexPath.row)
         }
     }
 }
