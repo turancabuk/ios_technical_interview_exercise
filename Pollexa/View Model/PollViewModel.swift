@@ -10,12 +10,29 @@ import UIKit
 class PollViewModel {
     
     // MARK: - Properties
-    private let posts: [Post]
+    private var posts: [Post] = []
+    private let postProvider: PostProvider
+    var onPostsFetched: (() -> Void)?
     
-    init(posts: [Post]) {
-        self.posts = posts
+    init(postProvider: PostProvider = .shared) {
+        self.postProvider = postProvider
+        fetchPosts()
     }
     
+    private func fetchPosts() {
+        postProvider.fetchAll { [weak self] result in
+            switch result {
+            case .success(let posts):
+                self?.posts = posts
+                self?.onPostsFetched?()
+            case .failure(let error):
+                debugPrint("Failed to fetch posts: \(error.localizedDescription)")
+            }
+        }
+    }
+    func getPosts() -> [Post] {
+        return posts
+    }
     // MARK: - CollectionView Data Source Methods
     var numberOfPosts: Int {
         return posts.count
