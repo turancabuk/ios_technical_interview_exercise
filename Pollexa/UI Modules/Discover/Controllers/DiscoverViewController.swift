@@ -10,10 +10,11 @@ import UIKit
 class DiscoverViewController: UIViewController {
 
     // MARK: - Properties
+    private let provider = PostProvider.shared
     private let viewModel: PollViewModel
     
     // Lazy initialization for optimal memory usage
-    lazy var collectionView: UICollectionView = {
+    lazy var postsCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -37,27 +38,45 @@ class DiscoverViewController: UIViewController {
         super.viewDidLoad()
         
         setupBindings()
-        view.backgroundColor = .blue
+        setupLayout()
     }
+    // Binding ViewModel updates to the ViewController
     fileprivate func setupBindings() {
-        viewModel.onPostsFetched = { [weak self] in
+        viewModel.onPostsUpdated = { [weak self] in
             DispatchQueue.main.async {
-                self?.collectionView.reloadData()
+                self?.postsCollectionView.reloadData()
             }
         }
     }
+    // Autolayout confgs.
+    private func setupLayout() {
+        view.backgroundColor = .white
+        view.addSubview(postsCollectionView)
+        
+        postsCollectionView.delegate = self
+        postsCollectionView.dataSource = self
+        
+        NSLayoutConstraint.activate([
+            postsCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
+            postsCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4/5),
+            postsCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 4/5),
+            postsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        ])
+    }
 }
-//extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return viewModel.numberOfPosts
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PollCollectionViewCell", for: indexPath) as? PollCollectionViewCell else {
-//            return UICollectionViewCell()
-//        }
-//        if let viewModel {
-//            let post = viewModel.post(at: indexPath.row)
-//        }
-//    }
-//}
+extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    // MARK: - UICollectionView protocols
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return viewModel.numberOfPosts
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PollCollectionViewCell", for: indexPath) as? PollCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        
+        let post = viewModel.post(at: indexPath.item)
+        cell.configure(with: post)
+        return cell
+    }
+}
