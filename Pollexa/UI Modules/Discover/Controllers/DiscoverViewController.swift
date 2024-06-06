@@ -10,8 +10,7 @@ import UIKit
 class DiscoverViewController: UIViewController {
 
     // MARK: - Properties
-    private let postProvider = PostProvider.shared
-    private let viewModel: PollViewModel!
+    private let viewModel: PollViewModel
     
     // Lazy initialization for optimal memory usage
     lazy var collectionView: UICollectionView = {
@@ -23,35 +22,42 @@ class DiscoverViewController: UIViewController {
         return collectionView
     }()
     
+    // MARK: - Initializer.
+    init(viewModel: PollViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchData()
+        setupBindings()
+        view.backgroundColor = .blue
     }
-    fileprivate func fetchData() {
-        postProvider.fetchAll { result in
-            switch result {
-            case .success(let posts):
-                print(posts)
-                
-            case .failure(let error):
-                debugPrint(error.localizedDescription)
+    fileprivate func setupBindings() {
+        viewModel.onPostsFetched = { [weak self] in
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
             }
         }
     }
 }
-extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.numberOfPosts
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PollCollectionViewCell", for: indexPath) as? PollCollectionViewCell else {
-            return UICollectionViewCell()
-        }
-        if let viewModel {
-            let post = viewModel.post(at: indexPath.row)
-        }
-    }
-}
+//extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return viewModel.numberOfPosts
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PollCollectionViewCell", for: indexPath) as? PollCollectionViewCell else {
+//            return UICollectionViewCell()
+//        }
+//        if let viewModel {
+//            let post = viewModel.post(at: indexPath.row)
+//        }
+//    }
+//}
