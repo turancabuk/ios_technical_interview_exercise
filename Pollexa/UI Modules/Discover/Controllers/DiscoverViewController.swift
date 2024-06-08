@@ -56,14 +56,54 @@ class DiscoverViewController: UIViewController {
         return label
     }()
     
-    lazy var activePollLabel: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = #colorLiteral(red: 0.3468087614, green: 0.3369399607, blue: 0.8411970139, alpha: 1)
-        label.layer.cornerRadius = 20
-        label.clipsToBounds = true
-        label.heightAnchor.constraint(equalToConstant: 78).isActive = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    lazy var activePollLabel: UIView = {
+        let containerView = UIView()
+        containerView.backgroundColor = #colorLiteral(red: 0.3468087614, green: 0.3369399607, blue: 0.8411970139, alpha: 1)
+        containerView.layer.cornerRadius = 20
+        containerView.clipsToBounds = true
+        containerView.heightAnchor.constraint(equalToConstant: 78).isActive = true
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let activePollLabel = UILabel()
+        activePollLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        activePollLabel.text = "\(viewModel.numberOfPosts) Active Polls"
+        activePollLabel.textColor = .white
+        activePollLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let detailsLabel = UILabel()
+        detailsLabel.text = "See Details"
+        detailsLabel.textColor = .lightGray
+        detailsLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let pollStackView = UIStackView()
+        pollStackView.axis = .vertical
+        pollStackView.distribution = .fillEqually
+        pollStackView.alignment = .leading
+        pollStackView.addArrangedSubview(activePollLabel)
+        pollStackView.addArrangedSubview(detailsLabel)
+        pollStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(pollStackView)
+        NSLayoutConstraint.activate([
+            pollStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 12),
+            pollStackView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -12),
+            pollStackView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 24),
+            pollStackView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 3/4)
+        ])
+        
+        let detailIcon = UIImageView()
+        detailIcon.image = UIImage(systemName: "arrow.right.square.fill")
+        detailIcon.tintColor = .white
+        detailIcon.heightAnchor.constraint(equalToConstant: 33).isActive = true
+        detailIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
+        detailIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerView.addSubview(detailIcon)
+        NSLayoutConstraint.activate([
+            detailIcon.centerYAnchor.constraint(equalTo: pollStackView.centerYAnchor),
+            detailIcon.leadingAnchor.constraint(equalTo: pollStackView.trailingAnchor, constant: 12)
+        ])
+        return containerView
     }()
     
     lazy var postsCollectionView: UICollectionView = {
@@ -74,6 +114,7 @@ class DiscoverViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
+    
     // MARK: - Initializer.
     init(viewModel: PollViewModel) {
         self.viewModel = viewModel
@@ -161,3 +202,6 @@ extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewData
         return UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
     }
 }
+
+
+// arrow.right.square.fill
