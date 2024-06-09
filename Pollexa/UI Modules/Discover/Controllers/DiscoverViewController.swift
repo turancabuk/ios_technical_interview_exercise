@@ -168,7 +168,7 @@ class DiscoverViewController: UIViewController {
             activePollLabel.widthAnchor.constraint(equalTo: postsCollectionView.widthAnchor, multiplier: 0.95),
             activePollLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            postsCollectionView.topAnchor.constraint(equalTo: activePollLabel.bottomAnchor, constant: 8),
+            postsCollectionView.topAnchor.constraint(equalTo: activePollLabel.bottomAnchor, constant: 10),
             postsCollectionView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 4.5/6),
             postsCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.95),
             postsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -190,7 +190,7 @@ extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: postsCollectionView.bounds.width, height: 400)
+        return .init(width: postsCollectionView.bounds.width, height: 338)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
@@ -199,9 +199,9 @@ extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewData
         return 10
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 20, left: 10, bottom: 20, right: 10)
+        return UIEdgeInsets(top: 0, left: 10, bottom: 20, right: 10)
     }
 }
 
 
-// arrow.right.square.fill
+

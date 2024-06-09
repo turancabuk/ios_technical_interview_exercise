@@ -16,10 +16,18 @@ class PollCollectionViewCell: UICollectionViewCell {
     lazy var timeAgoLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 14), numOfLines: 1)
     lazy var optionsImageView = createCustomImageView(cornerRadius: 0)
     lazy var seperatorImageView = createCustomImageView(cornerRadius: 0)
+    lazy var lastVotedLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 14), numOfLines: 1)
     lazy var postContentLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 0)
     lazy var optionImageView = createCustomImageView(cornerRadius: 12)
     lazy var optionImageView1 = createCustomImageView(cornerRadius: 12)
-    lazy var totalVotesLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 16), numOfLines: 1)
+    lazy var totalVotesLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 12), numOfLines: 1)
+    lazy var percentageLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 12), numOfLines: 1)
+    lazy var percentageLabel1 = createCustomLabel(font: UIFont.systemFont(ofSize: 12), numOfLines: 1)
+
+    private var votesForOption1 = 0
+    private var votesForOption2 = 0
+    private var totalVotes = 0
+    private var hasVoted = false
     
     lazy var userInfoStackView: UIStackView = {
         let stackView = createCustomStackView(axis: .horizontal, spacing: 8)
@@ -30,6 +38,15 @@ class PollCollectionViewCell: UICollectionViewCell {
         userImageAndTimeStackView.addArrangedSubview(optionsImageView)
         stackView.addArrangedSubview(userImageView)
         stackView.addArrangedSubview(userImageAndTimeStackView)
+        return stackView
+    }()
+    
+    lazy var contentStackView: UIStackView = {
+        let stackView = createCustomStackView(axis: .vertical, spacing: -4)
+        stackView.distribution = .fillEqually
+        stackView.alignment = .leading
+        stackView.addArrangedSubview(lastVotedLabel)
+        stackView.addArrangedSubview(postContentLabel)
         return stackView
     }()
     
@@ -66,11 +83,15 @@ class PollCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(uniqueContainerView)
         uniqueContainerView.addSubview(userInfoStackView)
         uniqueContainerView.addSubview(seperatorImageView)
-        uniqueContainerView.addSubview(postContentLabel)
+        uniqueContainerView.addSubview(contentStackView)
         uniqueContainerView.addSubview(optionStackView)
         uniqueContainerView.addSubview(totalVotesLabel)
-        createVoteButton(to: optionImageView)
-        createVoteButton(to: optionImageView1)
+        
+        createVoteButton(to: optionImageView, isFirstOption: true)
+        createVoteButton(to: optionImageView1, isFirstOption: false)
+        
+        createPercentageLabel(to: optionImageView, label: percentageLabel)
+        createPercentageLabel(to: optionImageView1, label: percentageLabel1)
         
         NSLayoutConstraint.activate([
             uniqueContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
@@ -81,7 +102,7 @@ class PollCollectionViewCell: UICollectionViewCell {
             userImageView.heightAnchor.constraint(equalToConstant: 32),
             userImageView.widthAnchor.constraint(equalToConstant: 32),
             
-            userInfoStackView.topAnchor.constraint(equalTo: uniqueContainerView.topAnchor, constant: 4),
+            userInfoStackView.topAnchor.constraint(equalTo: uniqueContainerView.topAnchor, constant: 8),
             userInfoStackView.heightAnchor.constraint(equalTo: uniqueContainerView.heightAnchor, multiplier: 1/8),
             userInfoStackView.widthAnchor.constraint(equalTo: uniqueContainerView.widthAnchor, multiplier: 0.9),
             userInfoStackView.centerXAnchor.constraint(equalTo: uniqueContainerView.centerXAnchor),
@@ -91,21 +112,23 @@ class PollCollectionViewCell: UICollectionViewCell {
             seperatorImageView.widthAnchor.constraint(equalTo: uniqueContainerView.widthAnchor, multiplier: 0.9),
             seperatorImageView.centerXAnchor.constraint(equalTo: uniqueContainerView.centerXAnchor),
             
-            postContentLabel.topAnchor.constraint(equalTo: seperatorImageView.bottomAnchor, constant: 6),
-            postContentLabel.heightAnchor.constraint(equalToConstant: 40),
-            postContentLabel.widthAnchor.constraint(equalTo: seperatorImageView.widthAnchor),
-            postContentLabel.centerXAnchor.constraint(equalTo: uniqueContainerView.centerXAnchor),
+            contentStackView.topAnchor.constraint(equalTo: seperatorImageView.bottomAnchor, constant: 8),
+            contentStackView.heightAnchor.constraint(equalTo: uniqueContainerView.heightAnchor, multiplier: 0.2),
+            contentStackView.widthAnchor.constraint(equalTo: uniqueContainerView.widthAnchor, multiplier: 0.9),
+            contentStackView.leadingAnchor.constraint(equalTo: uniqueContainerView.leadingAnchor, constant: 12),
             
-            optionStackView.topAnchor.constraint(equalTo: postContentLabel.bottomAnchor, constant: 6),
-            optionStackView.heightAnchor.constraint(equalTo: uniqueContainerView.heightAnchor, multiplier: 0.6),
+            optionStackView.topAnchor.constraint(equalTo: contentStackView.bottomAnchor, constant: 6),
+            optionStackView.heightAnchor.constraint(equalTo: uniqueContainerView.heightAnchor, multiplier: 0.45),
             optionStackView.widthAnchor.constraint(equalTo: seperatorImageView.widthAnchor),
             optionStackView.centerXAnchor.constraint(equalTo: uniqueContainerView.centerXAnchor),
             
-            totalVotesLabel.topAnchor.constraint(equalTo: optionStackView.bottomAnchor, constant: 10),
-            totalVotesLabel.heightAnchor.constraint(equalToConstant: 18),
+            totalVotesLabel.topAnchor.constraint(equalTo: optionStackView.bottomAnchor, constant: 14),
+            totalVotesLabel.heightAnchor.constraint(equalToConstant: 14),
             totalVotesLabel.widthAnchor.constraint(equalTo: seperatorImageView.widthAnchor),
             totalVotesLabel.leadingAnchor.constraint(equalTo: optionStackView.leadingAnchor),
         ])
+        percentageLabel.isHidden = true
+        percentageLabel1.isHidden = true
     }
     // MARK: - Factory UI Methods.
     private func createCustomImageView(cornerRadius: CGFloat) -> UIImageView {
@@ -134,10 +157,10 @@ class PollCollectionViewCell: UICollectionViewCell {
         return stackView
     }
     
-    private func createVoteButton(to imageView: UIImageView) {
+    private func createVoteButton(to imageView: UIImageView, isFirstOption: Bool) {
         let button = UIButton()
         button.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
-        button.addTarget(self, action: #selector(voteButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: isFirstOption ? #selector(voteButtonTapped1) : #selector(voteButtonTapped2), for: .touchUpInside)
         button.backgroundColor = .white
         button.layer.cornerRadius = 15
         button.clipsToBounds = true
@@ -152,14 +175,77 @@ class PollCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    private func createPercentageLabel(to imageView: UIImageView, label: UILabel) {
+        label.text = "%"
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        imageView.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            label.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -12),
+            label.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -16),
+            label.heightAnchor.constraint(equalToConstant: 30),
+            label.widthAnchor.constraint(equalToConstant: 36)
+        ])
+    }
+    
+    private func resetCell() {
+        hasVoted = false
+        votesForOption1 = 0
+        votesForOption2 = 0
+        totalVotes = 0
+        
+        optionImageView.subviews.compactMap { $0 as? UIButton }.forEach { $0.isHidden = false}
+        optionImageView1.subviews.compactMap { $0 as? UIButton }.forEach { $0.isHidden = false}
+        percentageLabel.text = "0%"
+        percentageLabel1.text = "0%"
+        percentageLabel.isHidden = true
+        percentageLabel1.isHidden = true
+        totalVotesLabel.text = "total Votes: 0"
+    }
+
+    @objc private func voteButtonTapped1() {
+        guard !hasVoted else {return}
+        hasVoted = true
+        votesForOption1 += 1
+        totalVotes += 1
+        updateVoteUI()
+    }
+    @objc private func voteButtonTapped2() {
+        guard !hasVoted else {return}
+        hasVoted = true
+        votesForOption2 += 1
+        totalVotes += 1
+        updateVoteUI()
+    }
+    
+    private func updateVoteUI() {
+        let option1Percentage = totalVotes == 0 ? 0 : (votesForOption1 * 100) / totalVotes
+        let option2Percentage = totalVotes == 0 ? 0 : (votesForOption2 * 100) / totalVotes
+        
+        percentageLabel.text = "\(option1Percentage)%"
+        percentageLabel1.text = "\(option2Percentage)%"
+        totalVotesLabel.text = "Total Votes: \(totalVotes)"
+        
+        percentageLabel.isHidden = false
+        percentageLabel1.isHidden = false
+        
+        optionImageView.subviews.compactMap { $0 as? UIButton }.forEach { $0.isHidden = true}
+        optionImageView1.subviews.compactMap { $0 as? UIButton }.forEach { $0.isHidden = true}
+    }
+    
     // Configuring cell with post data
     func configure(with post: Post) {
+        resetCell()
+        
         userImageView.image = post.user.image
         userNameLabel.text = post.user.username
         timeAgoLabel.text = postContentSinceToday(post.createdAt)
         timeAgoLabel.textColor = .lightGray
         optionsImageView.image = UIImage(named: "optionsIcon")
         seperatorImageView.image = UIImage(named: "Seperator")
+        lastVotedLabel.text = "Last Voted"
+        lastVotedLabel.textColor = .darkGray
         postContentLabel.numberOfLines = 2
         seperatorImageView.translatesAutoresizingMaskIntoConstraints = false
         postContentLabel.text = post.content
@@ -174,6 +260,10 @@ class PollCollectionViewCell: UICollectionViewCell {
         
         totalVotesLabel.text = "\(post.options.count) Total Votes"
         totalVotesLabel.textColor = .lightGray
+        
+        if hasVoted {
+            updateVoteUI()
+        }
     }
     func postContentSinceToday(_ date: Date) -> String {
         let formatter = DateComponentsFormatter()
@@ -184,10 +274,4 @@ class PollCollectionViewCell: UICollectionViewCell {
         let dateString = formatter.string(from: date, to: now) ?? ""
         return "\(dateString) ago"
     }
-    @objc private func voteButtonTapped() {
-        print("voteButton tapped")
-    }
 }
-
-
-// hand.thumbsup
