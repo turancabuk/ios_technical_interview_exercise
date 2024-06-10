@@ -7,11 +7,12 @@
 
 import UIKit
 
-class DiscoverViewController: UIViewController {
+class DiscoverViewController: UIViewController, PollCollectionViewCellDelegate {
+    
 
     // MARK: - Properties
-    private let provider = PostProvider.shared
-    private let viewModel: PollViewModel
+    private let viewModel: DiscoverViewModel
+    var voteStatus = [String: (option: Int, date: Date)]()
     
     // Lazy initialization for optimal memory usage
     lazy var avatarAndControlStackView: UIStackView = {
@@ -116,7 +117,7 @@ class DiscoverViewController: UIViewController {
     }()
     
     // MARK: - Initializer.
-    init(viewModel: PollViewModel) {
+    init(viewModel: DiscoverViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
@@ -132,6 +133,7 @@ class DiscoverViewController: UIViewController {
         setupBindings()
         setupLayout()
     }
+    
     // Binding ViewModel updates to the ViewController
     fileprivate func setupBindings() {
         viewModel.onPostsUpdated = { [weak self] in
@@ -140,6 +142,7 @@ class DiscoverViewController: UIViewController {
             }
         }
     }
+    
     // Autolayout confgs.
     private func setupLayout() {
         view.backgroundColor = #colorLiteral(red: 0.972548306, green: 0.9725496173, blue: 1, alpha: 1)
@@ -174,8 +177,17 @@ class DiscoverViewController: UIViewController {
             postsCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
     }
+    
+    func updateVoteStatus(for postId: String, with option: Int) {
+        voteStatus[postId] = (option: option, date: Date())
+        DispatchQueue.main.async {
+            self.postsCollectionView.reloadData()
+        }
+    }
 }
+
 extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
     // MARK: - UICollectionView protocols
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return viewModel.numberOfPosts
@@ -186,18 +198,24 @@ extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewData
             return UICollectionViewCell()
         }
         let post = viewModel.post(at: indexPath.item)
-        cell.configure(with: post)
+        cell.viewModel = PollCollectionViewModel()
+        cell.configure(with: post, voteStatus: voteStatus)
+        cell.delegate = self
         return cell
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return .init(width: postsCollectionView.bounds.width, height: 338)
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 10
     }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 10, bottom: 20, right: 10)
     }

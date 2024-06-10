@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C5EF9F42C1776AB00EDCF6D /* PollCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */; };
 		5CB92DC72C10F0B70002C659 /* PollCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC62C10F0B70002C659 /* PollCollectionViewCell.swift */; };
-		5CB92DCA2C10F1BE0002C659 /* PollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC92C10F1BE0002C659 /* PollViewModel.swift */; };
+		5CB92DCA2C10F1BE0002C659 /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */; };
 		6E3A36022BF2563400ECE78C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3A36012BF2563400ECE78C /* AppDelegate.swift */; };
 		6E3A36042BF2563400ECE78C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3A36032BF2563400ECE78C /* SceneDelegate.swift */; };
 		6E3A36062BF2563400ECE78C /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3A36052BF2563400ECE78C /* DiscoverViewController.swift */; };
@@ -22,8 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewModel.swift; sourceTree = "<group>"; };
 		5CB92DC62C10F0B70002C659 /* PollCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewCell.swift; sourceTree = "<group>"; };
-		5CB92DC92C10F1BE0002C659 /* PollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollViewModel.swift; sourceTree = "<group>"; };
+		5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		6E3A35FE2BF2563400ECE78C /* Pollexa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pollexa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E3A36012BF2563400ECE78C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6E3A36032BF2563400ECE78C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -57,12 +59,13 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		5CB92DC82C10F1910002C659 /* View Model */ = {
+		5CB92DC82C10F1910002C659 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
-				5CB92DC92C10F1BE0002C659 /* PollViewModel.swift */,
+				5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */,
+				5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */,
 			);
-			path = "View Model";
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 		6E3A35F52BF2563400ECE78C = {
@@ -85,7 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				6E3A361D2BF25F3B00ECE78C /* Models */,
-				5CB92DC82C10F1910002C659 /* View Model */,
+				5CB92DC82C10F1910002C659 /* View Models */,
 				6E3A36242BF2601100ECE78C /* UI Modules */,
 				6E3A36222BF25FFC00ECE78C /* Helpers */,
 				6E3A361E2BF25FC900ECE78C /* Resources */,
@@ -237,7 +240,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E3A36062BF2563400ECE78C /* DiscoverViewController.swift in Sources */,
-				5CB92DCA2C10F1BE0002C659 /* PollViewModel.swift in Sources */,
+				5C5EF9F42C1776AB00EDCF6D /* PollCollectionViewModel.swift in Sources */,
+				5CB92DCA2C10F1BE0002C659 /* DiscoverViewModel.swift in Sources */,
 				6E3A36022BF2563400ECE78C /* AppDelegate.swift in Sources */,
 				6E3A361A2BF25DAC00ECE78C /* User.swift in Sources */,
 				6E3A36162BF25D8D00ECE78C /* PostProvider.swift in Sources */,
