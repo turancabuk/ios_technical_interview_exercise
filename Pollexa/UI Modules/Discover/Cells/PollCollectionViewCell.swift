@@ -7,7 +7,18 @@
 
 import UIKit
 
+
+protocol PollCollectionViewCellDelegate: AnyObject {
+    func updateVoteStatus(for postId: String, with option: Int)
+}
 class PollCollectionViewCell: UICollectionViewCell {
+    
+    weak var delegate: PollCollectionViewCellDelegate?
+    var viewModel: PollCollectionViewModel? {
+        didSet {
+            viewModel?.delegate = self
+        }
+    }
     
     // MARK: - Properties
     // Properties has been created with lazy initialization for optimal memory usage.
@@ -21,13 +32,8 @@ class PollCollectionViewCell: UICollectionViewCell {
     lazy var optionImageView = createCustomImageView(cornerRadius: 12)
     lazy var optionImageView1 = createCustomImageView(cornerRadius: 12)
     lazy var totalVotesLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 12), numOfLines: 1)
-    lazy var percentageLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 12), numOfLines: 1)
-    lazy var percentageLabel1 = createCustomLabel(font: UIFont.systemFont(ofSize: 12), numOfLines: 1)
-
-    private var votesForOption1 = 0
-    private var votesForOption2 = 0
-    private var totalVotes = 0
-    private var hasVoted = false
+    lazy var percentageLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 1)
+    lazy var percentageLabel1 = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 1)
     
     lazy var userInfoStackView: UIStackView = {
         let stackView = createCustomStackView(axis: .horizontal, spacing: 8)
@@ -78,6 +84,11 @@ class PollCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    deinit {
+        viewModel?.stopTimer()
+    }
+    
     // MARK: - Layout Constraints for subviews
     private func setupLayout() {
         contentView.addSubview(uniqueContainerView)
@@ -184,94 +195,66 @@ class PollCollectionViewCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             label.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -12),
             label.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -16),
-            label.heightAnchor.constraint(equalToConstant: 30),
-            label.widthAnchor.constraint(equalToConstant: 36)
+            label.heightAnchor.constraint(equalToConstant: 36),
+            label.widthAnchor.constraint(equalToConstant: 40)
         ])
     }
     
-    private func resetCell() {
-        hasVoted = false
-        votesForOption1 = 0
-        votesForOption2 = 0
-        totalVotes = 0
-        
-        optionImageView.subviews.compactMap { $0 as? UIButton }.forEach { $0.isHidden = false}
-        optionImageView1.subviews.compactMap { $0 as? UIButton }.forEach { $0.isHidden = false}
-        percentageLabel.text = "0%"
-        percentageLabel1.text = "0%"
-        percentageLabel.isHidden = true
-        percentageLabel1.isHidden = true
-        totalVotesLabel.text = "total Votes: 0"
-    }
-
     @objc private func voteButtonTapped1() {
-        guard !hasVoted else {return}
-        hasVoted = true
-        votesForOption1 += 1
-        totalVotes += 1
-        updateVoteUI()
-    }
-    @objc private func voteButtonTapped2() {
-        guard !hasVoted else {return}
-        hasVoted = true
-        votesForOption2 += 1
-        totalVotes += 1
-        updateVoteUI()
+        viewModel?.vote(option: 1)
+        if let postId = viewModel?.postId {
+            delegate?.updateVoteStatus(for: postId, with: 1)
+        }
     }
     
-    private func updateVoteUI() {
-        let option1Percentage = totalVotes == 0 ? 0 : (votesForOption1 * 100) / totalVotes
-        let option2Percentage = totalVotes == 0 ? 0 : (votesForOption2 * 100) / totalVotes
-        
-        percentageLabel.text = "\(option1Percentage)%"
-        percentageLabel1.text = "\(option2Percentage)%"
-        totalVotesLabel.text = "Total Votes: \(totalVotes)"
-        
-        percentageLabel.isHidden = false
-        percentageLabel1.isHidden = false
-        
-        optionImageView.subviews.compactMap { $0 as? UIButton }.forEach { $0.isHidden = true}
-        optionImageView1.subviews.compactMap { $0 as? UIButton }.forEach { $0.isHidden = true}
+    @objc private func voteButtonTapped2() {
+        viewModel?.vote(option: 2)
+        if let postId = viewModel?.postId {
+            delegate?.updateVoteStatus(for: postId, with: 2)
+        }
     }
     
     // Configuring cell with post data
-    func configure(with post: Post) {
-        resetCell()
+    func configure(with post: Post, voteStatus: [String: (option: Int, date: Date)]) {
+        viewModel?.configure(with: post, voteStatus: voteStatus)
         
         userImageView.image = post.user.image
         userNameLabel.text = post.user.username
         timeAgoLabel.text = postContentSinceToday(post.createdAt)
-        timeAgoLabel.textColor = .lightGray
         optionsImageView.image = UIImage(named: "optionsIcon")
         seperatorImageView.image = UIImage(named: "Seperator")
-        lastVotedLabel.text = "Last Voted"
-        lastVotedLabel.textColor = .darkGray
-        postContentLabel.numberOfLines = 2
-        seperatorImageView.translatesAutoresizingMaskIntoConstraints = false
         postContentLabel.text = post.content
-        
         if post.options.count > 0 {
             optionImageView.image = post.options[0].image
         }
-        
         if post.options.count > 1 {
             optionImageView1.image = post.options[1].image
         }
-        
-        totalVotesLabel.text = "\(post.options.count) Total Votes"
-        totalVotesLabel.textColor = .lightGray
-        
-        if hasVoted {
-            updateVoteUI()
-        }
     }
+    
     func postContentSinceToday(_ date: Date) -> String {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .full
-        formatter.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute, .second]
+        formatter.allowedUnits = [.year, .month, .weekOfMonth, .day, .hour, .minute]
         formatter.maximumUnitCount = 1
         let now = Date()
         let dateString = formatter.string(from: date, to: now) ?? ""
         return "\(dateString) ago"
+    }
+}
+extension PollCollectionViewCell: PollViewModelDelegate {
+    @objc func updateVoteUI() {
+        guard let viewModel = viewModel else {return}
+        
+        percentageLabel.text = "\(viewModel.getOptionPercentage(option: 1))%"
+        percentageLabel1.text = "\(viewModel.getOptionPercentage(option: 2))%"
+        totalVotesLabel.text = viewModel.getTotalVotesText()
+        lastVotedLabel.text = viewModel.getLastVotedText()
+        
+        percentageLabel.isHidden = !viewModel.hasVoted
+        percentageLabel1.isHidden = !viewModel.hasVoted
+        
+        optionImageView.subviews.compactMap {$0 as? UIButton}.forEach {$0.isHidden = viewModel.hasVoted}
+        optionImageView1.subviews.compactMap {$0 as? UIButton}.forEach {$0.isHidden = viewModel.hasVoted}
     }
 }
