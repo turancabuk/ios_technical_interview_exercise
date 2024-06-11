@@ -38,8 +38,10 @@ class PollCollectionViewModel {
             }else if vote.option == 2 {
                 votesForOption2 += 1
             }
-            totalVotes += 1
+            totalVotes = votesForOption1 + votesForOption2
             startTimer()
+        }else{
+            totalVotes = 0
         }
         onDataUpdated?()
     }
@@ -54,7 +56,7 @@ class PollCollectionViewModel {
         }else{
             votesForOption2 += 1
         }
-        totalVotes += 1
+        totalVotes = votesForOption1 + votesForOption2
         lastVotedDate = Date()
         onDataUpdated?()
         startTimer()
@@ -63,7 +65,13 @@ class PollCollectionViewModel {
     // MARK: Calculations
     func getOptionPercentage(option: Int) -> Int {
         guard totalVotes > 0 else {return 0}
-        return option == 1 ? (votesForOption1 * 100) / totalVotes : (votesForOption2 * 100) / totalVotes
+//        return option == 1 ? (votesForOption1 * 100) / totalVotes : (votesForOption2 * 100) / totalVotes
+        guard totalVotes > 0 else { return 0 }
+        if option == 1 {
+            return (votesForOption1 * 100) / totalVotes
+        } else {
+            return (votesForOption2 * 100) / totalVotes
+        }
     }
     
     func getTotalVotesText() -> String {

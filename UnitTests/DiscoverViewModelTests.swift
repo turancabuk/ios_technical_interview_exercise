@@ -10,9 +10,11 @@ import XCTest
 
 final class DiscoverViewModelTests: XCTestCase {
     
+    // MARK: - Properties
     var viewModel: DiscoverViewModel!
     var mockPosts: [Post]!
     
+    // MARK: - Setup and Teardown
     override func setUpWithError() throws {
         try super.setUpWithError()
         mockPosts = [
@@ -56,6 +58,7 @@ final class DiscoverViewModelTests: XCTestCase {
         try super.tearDownWithError()
     }
     
+    // MARK: - Tests
     func test_numberOfPosts() {
         XCTAssertEqual(viewModel.numberOfPosts, mockPosts.count)
     }
@@ -88,7 +91,7 @@ final class DiscoverViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfPosts, 0)
     }
 }
-
+// MARK: - MockPostProvider
 class MockPostProvider: PostProviderProtocol {
     
     var posts: [Post]?

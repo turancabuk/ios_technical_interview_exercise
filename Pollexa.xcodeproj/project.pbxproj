@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C5EF9F42C1776AB00EDCF6D /* PollCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */; };
 		5C7D5FF72C18C7830059BFDD /* DiscoverViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D5FF62C18C7830059BFDD /* DiscoverViewModelTests.swift */; };
+		5CA006B72C1905FF00A43E20 /* PollCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA006B62C1905FF00A43E20 /* PollCollectionViewModelTests.swift */; };
 		5CB92DC72C10F0B70002C659 /* PollCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC62C10F0B70002C659 /* PollCollectionViewCell.swift */; };
 		5CB92DCA2C10F1BE0002C659 /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */; };
 		6E3A36022BF2563400ECE78C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3A36012BF2563400ECE78C /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 		5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewModel.swift; sourceTree = "<group>"; };
 		5C7D5FF42C18C7830059BFDD /* DiscoverViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiscoverViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7D5FF62C18C7830059BFDD /* DiscoverViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModelTests.swift; sourceTree = "<group>"; };
+		5CA006B62C1905FF00A43E20 /* PollCollectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewModelTests.swift; sourceTree = "<group>"; };
 		5CB92DC62C10F0B70002C659 /* PollCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		6E3A35FE2BF2563400ECE78C /* Pollexa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pollexa.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -71,12 +73,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5C7D5FF52C18C7830059BFDD /* DiscoverViewModelTests */ = {
+		5C7D5FF52C18C7830059BFDD /* UnitTests */ = {
 			isa = PBXGroup;
 			children = (
 				5C7D5FF62C18C7830059BFDD /* DiscoverViewModelTests.swift */,
+				5CA006B62C1905FF00A43E20 /* PollCollectionViewModelTests.swift */,
 			);
-			path = DiscoverViewModelTests;
+			path = UnitTests;
 			sourceTree = "<group>";
 		};
 		5CB92DC52C10F08C0002C659 /* Cells */ = {
@@ -100,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				6E3A36002BF2563400ECE78C /* Pollexa */,
-				5C7D5FF52C18C7830059BFDD /* DiscoverViewModelTests */,
+				5C7D5FF52C18C7830059BFDD /* UnitTests */,
 				6E3A35FF2BF2563400ECE78C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5C7D5FF72C18C7830059BFDD /* DiscoverViewModelTests.swift in Sources */,
+				5CA006B72C1905FF00A43E20 /* PollCollectionViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
