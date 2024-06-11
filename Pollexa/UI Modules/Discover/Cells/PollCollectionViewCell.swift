@@ -255,20 +255,21 @@ extension PollCollectionViewCell: PollViewModelDelegate {
         optionImageView.subviews.compactMap {$0 as? UIButton}.forEach {$0.isHidden = viewModel.hasVoted}
         optionImageView1.subviews.compactMap {$0 as? UIButton}.forEach {$0.isHidden = viewModel.hasVoted}
         
-        userImageView.image = viewModel.post?.user.image
         userNameLabel.text = viewModel.post?.user.username
         timeAgoLabel.text = postContentSinceToday(viewModel.post?.createdAt ?? Date())
         timeAgoLabel.textColor = .lightGray
-        optionsImageView.image = UIImage(named: "optionsIcon")
-        seperatorImageView.image = UIImage(named: "Seperator")
+        
         lastVotedLabel.textColor = .lightGray
         postContentLabel.text = viewModel.post?.content
         totalVotesLabel.textColor = .lightGray
+        self.userImageView.image = viewModel.post?.user.image
+        self.optionsImageView.image = UIImage(named: "optionsIcon") ?? UIImage(systemName: "circle.fill")
+        self.seperatorImageView.image = UIImage(named: "Seperator") ?? UIImage(systemName: "circle.fill")
         if viewModel.post?.options.count ?? 0 > 0 {
-            optionImageView.image = viewModel.post?.options[0].image
+            self.optionImageView.image = viewModel.post?.options[0].image
         }
         if viewModel.post?.options.count ?? 0 > 1 {
-            optionImageView1.image = viewModel.post?.options[1].image
+            self.optionImageView1.image = viewModel.post?.options[1].image
         }
     }
 }

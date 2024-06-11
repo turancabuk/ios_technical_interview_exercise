@@ -7,10 +7,13 @@
 
 import Foundation
 
-class PostProvider {
+protocol PostProviderProtocol {
+    func fetchAll(completion: @escaping (Result<[Post], Error>) -> Void)
+}
+class PostProvider: PostProviderProtocol {
     
     // MARK: - Properties
-    static let shared = PostProvider(fileName: "posts")
+    static let shared: PostProviderProtocol = PostProvider(fileName: "posts")
     private let filename: String
     
     private let decoder: JSONDecoder = {
@@ -28,7 +31,7 @@ class PostProvider {
     }
     
     // MARK: - Methods
-    func fetchAll(completion: (_ result: Result<[Post], Error>) -> Void) {
+    func fetchAll(completion: @escaping (Result<[Post], Error>) -> Void) {
         guard let fileUrl = Bundle.main.url(
             forResource: filename,
             withExtension: "json"
@@ -36,7 +39,8 @@ class PostProvider {
             completion(.failure(
                 NSError(
                     domain: "JSON file not found.",
-                    code: 0
+                    code: 0,
+                    userInfo: nil
                 )
             ))
             return
@@ -46,7 +50,8 @@ class PostProvider {
             completion(.failure(
                 NSError(
                     domain: "Could not read the data.",
-                    code: 1
+                    code: 1,
+                    userInfo: nil
                 )
             ))
             return

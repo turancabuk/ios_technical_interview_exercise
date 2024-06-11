@@ -15,4 +15,12 @@ struct Post: Decodable {
     let content: String
     let options: [Option]
     let user: User
+    
+    init(id: String, createdAt: Date, content: String, options: [Option], user: User) {
+        self.id = id
+        self.createdAt = createdAt
+        self.content = content
+        self.options = options
+        self.user = user
+    }
 }
