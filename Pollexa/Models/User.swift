@@ -16,6 +16,13 @@ struct User: Decodable {
         case imageName
     }
     
+    // Default initializer
+    init(id: String, username: String, image: UIImage) {
+        self.id = id
+        self.username = username
+        self.image = image
+    }
+    
     // MARK: - Properties
     let id: String
     let username: String
