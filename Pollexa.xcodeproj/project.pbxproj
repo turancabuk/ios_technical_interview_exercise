@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5C5EF9F42C1776AB00EDCF6D /* PollCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */; };
+		5C7D5FF72C18C7830059BFDD /* DiscoverViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D5FF62C18C7830059BFDD /* DiscoverViewModelTests.swift */; };
 		5CB92DC72C10F0B70002C659 /* PollCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC62C10F0B70002C659 /* PollCollectionViewCell.swift */; };
 		5CB92DCA2C10F1BE0002C659 /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */; };
 		6E3A36022BF2563400ECE78C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3A36012BF2563400ECE78C /* AppDelegate.swift */; };
@@ -22,8 +23,20 @@
 		6E3A36212BF25FD900ECE78C /* posts.json in Resources */ = {isa = PBXBuildFile; fileRef = 6E3A361F2BF25FD900ECE78C /* posts.json */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		5C7D5FF82C18C7830059BFDD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E3A35F62BF2563400ECE78C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E3A35FD2BF2563400ECE78C;
+			remoteInfo = Pollexa;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewModel.swift; sourceTree = "<group>"; };
+		5C7D5FF42C18C7830059BFDD /* DiscoverViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiscoverViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C7D5FF62C18C7830059BFDD /* DiscoverViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModelTests.swift; sourceTree = "<group>"; };
 		5CB92DC62C10F0B70002C659 /* PollCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
 		6E3A35FE2BF2563400ECE78C /* Pollexa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pollexa.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,6 +54,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		5C7D5FF12C18C7830059BFDD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6E3A35FB2BF2563400ECE78C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -51,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5C7D5FF52C18C7830059BFDD /* DiscoverViewModelTests */ = {
+			isa = PBXGroup;
+			children = (
+				5C7D5FF62C18C7830059BFDD /* DiscoverViewModelTests.swift */,
+			);
+			path = DiscoverViewModelTests;
+			sourceTree = "<group>";
+		};
 		5CB92DC52C10F08C0002C659 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -72,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				6E3A36002BF2563400ECE78C /* Pollexa */,
+				5C7D5FF52C18C7830059BFDD /* DiscoverViewModelTests */,
 				6E3A35FF2BF2563400ECE78C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				6E3A35FE2BF2563400ECE78C /* Pollexa.app */,
+				5C7D5FF42C18C7830059BFDD /* DiscoverViewModelTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,6 +201,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		5C7D5FF32C18C7830059BFDD /* DiscoverViewModelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C7D5FFC2C18C7830059BFDD /* Build configuration list for PBXNativeTarget "DiscoverViewModelTests" */;
+			buildPhases = (
+				5C7D5FF02C18C7830059BFDD /* Sources */,
+				5C7D5FF12C18C7830059BFDD /* Frameworks */,
+				5C7D5FF22C18C7830059BFDD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C7D5FF92C18C7830059BFDD /* PBXTargetDependency */,
+			);
+			name = DiscoverViewModelTests;
+			productName = DiscoverViewModelTests;
+			productReference = 5C7D5FF42C18C7830059BFDD /* DiscoverViewModelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		6E3A35FD2BF2563400ECE78C /* Pollexa */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E3A36122BF2563500ECE78C /* Build configuration list for PBXNativeTarget "Pollexa" */;
@@ -195,9 +243,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1530;
+				LastSwiftUpdateCheck = 1540;
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
+					5C7D5FF32C18C7830059BFDD = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 6E3A35FD2BF2563400ECE78C;
+					};
 					6E3A35FD2BF2563400ECE78C = {
 						CreatedOnToolsVersion = 15.3;
 					};
@@ -217,11 +269,19 @@
 			projectRoot = "";
 			targets = (
 				6E3A35FD2BF2563400ECE78C /* Pollexa */,
+				5C7D5FF32C18C7830059BFDD /* DiscoverViewModelTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		5C7D5FF22C18C7830059BFDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6E3A35FC2BF2563400ECE78C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -235,6 +295,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		5C7D5FF02C18C7830059BFDD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C7D5FF72C18C7830059BFDD /* DiscoverViewModelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6E3A35FA2BF2563400ECE78C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -253,6 +321,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		5C7D5FF92C18C7830059BFDD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E3A35FD2BF2563400ECE78C /* Pollexa */;
+			targetProxy = 5C7D5FF82C18C7830059BFDD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6E3A360C2BF2563500ECE78C /* LaunchScreen.storyboard */ = {
@@ -274,6 +350,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		5C7D5FFA2C18C7830059BFDD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.sevenapps.Pollexa.DiscoverViewModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pollexa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pollexa";
+			};
+			name = Debug;
+		};
+		5C7D5FFB2C18C7830059BFDD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.sevenapps.Pollexa.DiscoverViewModelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pollexa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pollexa";
+			};
+			name = Release;
+		};
 		6E3A36102BF2563500ECE78C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -326,7 +438,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -383,7 +495,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -456,6 +568,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		5C7D5FFC2C18C7830059BFDD /* Build configuration list for PBXNativeTarget "DiscoverViewModelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C7D5FFA2C18C7830059BFDD /* Debug */,
+				5C7D5FFB2C18C7830059BFDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		6E3A35F92BF2563400ECE78C /* Build configuration list for PBXProject "Pollexa" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -13,9 +13,11 @@ class DiscoverViewModel {
     // MARK: - Properties
     private var posts: [Post] = []
     var onPostsUpdated: (() -> Void)?
+    private var postProvider: PostProviderProtocol
     
     // Initialize ViewModel and fetch posts
-    init() {
+    init(postProvider: PostProviderProtocol = PostProvider.shared) {
+        self.postProvider = postProvider
         fetchPosts()
     }
     
@@ -30,7 +32,7 @@ class DiscoverViewModel {
     
     // Fetch posts from the provider
     func fetchPosts() {
-        PostProvider.shared.fetchAll { [weak self] result in
+        postProvider.fetchAll { [weak self] result in
             switch result {
             case .success(let posts):
                 // posts sorted by createdAt
