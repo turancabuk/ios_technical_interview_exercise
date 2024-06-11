@@ -14,6 +14,8 @@ class PollCollectionViewModel {
     
     // MARK: - Properties.
     weak var delegate: PollViewModelDelegate?
+    var post: Post?
+    var onDataUpdated: (() -> Void)?
     private(set) var votesForOption1 = 0
     private(set) var votesForOption2 = 0
     private(set) var totalVotes = 0
@@ -22,8 +24,10 @@ class PollCollectionViewModel {
     private(set) var lastVotedDate: Date?
     private var timer: Timer?
     
+    // MARK: - Configuration
     func configure(with post: Post, voteStatus: [String: (option: Int, date: Date)]) {
         reset()
+        self.post = post
         self.postId = post.id
         
         if let vote = voteStatus[post.id] {
@@ -37,9 +41,10 @@ class PollCollectionViewModel {
             totalVotes += 1
             startTimer()
         }
-        delegate?.updateVoteUI()
+        onDataUpdated?()
     }
     
+    // MARK: - Voting
     func vote(option: Int) {
         guard !hasVoted else {return}
         hasVoted = true
@@ -51,10 +56,11 @@ class PollCollectionViewModel {
         }
         totalVotes += 1
         lastVotedDate = Date()
-        delegate?.updateVoteUI()
+        onDataUpdated?()
         startTimer()
     }
     
+    // MARK: Calculations
     func getOptionPercentage(option: Int) -> Int {
         guard totalVotes > 0 else {return 0}
         return option == 1 ? (votesForOption1 * 100) / totalVotes : (votesForOption2 * 100) / totalVotes
@@ -75,6 +81,7 @@ class PollCollectionViewModel {
         return "Last Voted \(dateString) ago"
     }
     
+    // MARK: - Helper Method
     private func reset() {
         votesForOption1 = 0
         votesForOption2 = 0
@@ -84,6 +91,7 @@ class PollCollectionViewModel {
         stopTimer()
     }
     
+    // MARK: - Timer Management
     func startTimer() {
         stopTimer()
         timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
@@ -95,6 +103,6 @@ class PollCollectionViewModel {
     }
     
     @objc private func timerFired() {
-        delegate?.updateVoteUI()
+        onDataUpdated?()
     }
 }

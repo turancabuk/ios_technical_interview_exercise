@@ -14,8 +14,7 @@ class DiscoverViewModel {
     private var posts: [Post] = []
     var onPostsUpdated: (() -> Void)?
     
-
-    
+    // Initialize ViewModel and fetch posts
     init() {
         fetchPosts()
     }
