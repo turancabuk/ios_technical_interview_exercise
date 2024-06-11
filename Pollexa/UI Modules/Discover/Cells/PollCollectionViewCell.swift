@@ -7,23 +7,24 @@
 
 import UIKit
 
-
 protocol PollCollectionViewCellDelegate: AnyObject {
     func updateVoteStatus(for postId: String, with option: Int)
 }
 class PollCollectionViewCell: UICollectionViewCell {
     
+    // MARK: - Properties
     weak var delegate: PollCollectionViewCellDelegate?
     var viewModel: PollCollectionViewModel? {
         didSet {
             viewModel?.delegate = self
+            configureBindings()
         }
     }
     
-    // MARK: - Properties
+    // MARK: - UI Elements
     // Properties has been created with lazy initialization for optimal memory usage.
     lazy var userImageView = createCustomImageView(cornerRadius: 20)
-    lazy var userNameLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 16), numOfLines: 1)
+    lazy var userNameLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 16), numOfLines: 1)
     lazy var timeAgoLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 14), numOfLines: 1)
     lazy var optionsImageView = createCustomImageView(cornerRadius: 0)
     lazy var seperatorImageView = createCustomImageView(cornerRadius: 0)
@@ -31,10 +32,11 @@ class PollCollectionViewCell: UICollectionViewCell {
     lazy var postContentLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 0)
     lazy var optionImageView = createCustomImageView(cornerRadius: 12)
     lazy var optionImageView1 = createCustomImageView(cornerRadius: 12)
-    lazy var totalVotesLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 12), numOfLines: 1)
+    lazy var totalVotesLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 12), numOfLines: 1)
     lazy var percentageLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 1)
     lazy var percentageLabel1 = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 1)
     
+    // Stack views to organize the UI elements
     lazy var userInfoStackView: UIStackView = {
         let stackView = createCustomStackView(axis: .horizontal, spacing: 8)
         stackView.alignment = .center
@@ -75,6 +77,7 @@ class PollCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
+    // MARK: - Inıtializers
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -104,6 +107,7 @@ class PollCollectionViewCell: UICollectionViewCell {
         createPercentageLabel(to: optionImageView, label: percentageLabel)
         createPercentageLabel(to: optionImageView1, label: percentageLabel1)
         
+        // Define layout constraints
         NSLayoutConstraint.activate([
             uniqueContainerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
             uniqueContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
@@ -200,6 +204,18 @@ class PollCollectionViewCell: UICollectionViewCell {
         ])
     }
     
+    // MARK: - Data Binding
+    private func configureBindings() {
+        viewModel?.onDataUpdated = { [weak self] in
+            guard let self = self else {return}
+            self.updateVoteUI()
+        }
+    }
+    // Configuring cell with post data
+    func configureCell(with post: Post, voteStatus: [String: (option: Int, date: Date)]) {
+        viewModel?.configure(with: post, voteStatus: voteStatus)
+    }
+    
     @objc private func voteButtonTapped1() {
         viewModel?.vote(option: 1)
         if let postId = viewModel?.postId {
@@ -214,24 +230,7 @@ class PollCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    // Configuring cell with post data
-    func configure(with post: Post, voteStatus: [String: (option: Int, date: Date)]) {
-        viewModel?.configure(with: post, voteStatus: voteStatus)
-        
-        userImageView.image = post.user.image
-        userNameLabel.text = post.user.username
-        timeAgoLabel.text = postContentSinceToday(post.createdAt)
-        optionsImageView.image = UIImage(named: "optionsIcon")
-        seperatorImageView.image = UIImage(named: "Seperator")
-        postContentLabel.text = post.content
-        if post.options.count > 0 {
-            optionImageView.image = post.options[0].image
-        }
-        if post.options.count > 1 {
-            optionImageView1.image = post.options[1].image
-        }
-    }
-    
+    // Helper Method
     func postContentSinceToday(_ date: Date) -> String {
         let formatter = DateComponentsFormatter()
         formatter.unitsStyle = .full
@@ -243,9 +242,8 @@ class PollCollectionViewCell: UICollectionViewCell {
     }
 }
 extension PollCollectionViewCell: PollViewModelDelegate {
-    @objc func updateVoteUI() {
-        guard let viewModel = viewModel else {return}
-        
+    func updateVoteUI() {
+        guard let viewModel = self.viewModel else {return}
         percentageLabel.text = "\(viewModel.getOptionPercentage(option: 1))%"
         percentageLabel1.text = "\(viewModel.getOptionPercentage(option: 2))%"
         totalVotesLabel.text = viewModel.getTotalVotesText()
@@ -256,5 +254,21 @@ extension PollCollectionViewCell: PollViewModelDelegate {
         
         optionImageView.subviews.compactMap {$0 as? UIButton}.forEach {$0.isHidden = viewModel.hasVoted}
         optionImageView1.subviews.compactMap {$0 as? UIButton}.forEach {$0.isHidden = viewModel.hasVoted}
+        
+        userImageView.image = viewModel.post?.user.image
+        userNameLabel.text = viewModel.post?.user.username
+        timeAgoLabel.text = postContentSinceToday(viewModel.post?.createdAt ?? Date())
+        timeAgoLabel.textColor = .lightGray
+        optionsImageView.image = UIImage(named: "optionsIcon")
+        seperatorImageView.image = UIImage(named: "Seperator")
+        lastVotedLabel.textColor = .lightGray
+        postContentLabel.text = viewModel.post?.content
+        totalVotesLabel.textColor = .lightGray
+        if viewModel.post?.options.count ?? 0 > 0 {
+            optionImageView.image = viewModel.post?.options[0].image
+        }
+        if viewModel.post?.options.count ?? 0 > 1 {
+            optionImageView1.image = viewModel.post?.options[1].image
+        }
     }
 }
