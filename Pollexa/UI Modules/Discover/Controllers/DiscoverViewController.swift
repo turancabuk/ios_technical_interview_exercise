@@ -220,7 +220,7 @@ extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewData
         let sectionInsets = self.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: indexPath.section)
         let contentInsets = collectionView.contentInset
         let width = collectionView.bounds.width - sectionInsets.left - sectionInsets.right - contentInsets.left - contentInsets.right
-        return .init(width: width, height: 330)
+        return .init(width: width, height: 340)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
