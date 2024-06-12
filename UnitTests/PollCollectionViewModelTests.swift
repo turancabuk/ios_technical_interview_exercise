@@ -77,5 +77,4 @@ final class PollCollectionViewModelTests: XCTestCase {
         viewModel.configure(with: mockPost, voteStatus: mockVoteStatus)
         XCTAssertTrue(viewModel.getLastVotedText().contains("ago"))
     }
-
 }
