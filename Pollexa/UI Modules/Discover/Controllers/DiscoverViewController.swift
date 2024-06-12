@@ -24,7 +24,8 @@ class DiscoverViewController: UIViewController, PollCollectionViewCellDelegate {
         stackView.alignment = .center
         
         let avatarImageView = UIImageView()
-        avatarImageView.image = UIImage(named: "avatar_1") ?? UIImage(named: "person.fill")
+        avatarImageView.image = UIImage(named: "avatar_1")
+        avatarImageView.accessibilityIdentifier = "avatarImageView"
         avatarImageView.contentMode = .scaleAspectFit
         avatarImageView.layer.cornerRadius = 17
         avatarImageView.clipsToBounds = true
@@ -33,7 +34,8 @@ class DiscoverViewController: UIViewController, PollCollectionViewCellDelegate {
         avatarImageView.widthAnchor.constraint(equalToConstant: 34).isActive = true
         
         let controlImageView = UIImageView()
-        controlImageView.image = UIImage(systemName: "plus") ?? UIImage(named: "plus.circle.fill")
+        controlImageView.image = UIImage(systemName: "plus")
+        controlImageView.accessibilityIdentifier = "controlImageView"
         controlImageView.tintColor = #colorLiteral(red: 0.3468087614, green: 0.3369399607, blue: 0.8411970139, alpha: 1)
         controlImageView.contentMode = .scaleAspectFit
         controlImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +54,7 @@ class DiscoverViewController: UIViewController, PollCollectionViewCellDelegate {
     lazy var discoverLabel: UILabel = {
         let label = UILabel()
         label.text = "Discover"
+        label.accessibilityIdentifier = "discoverLabel"
         label.font = UIFont.boldSystemFont(ofSize: 28)
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -64,16 +67,19 @@ class DiscoverViewController: UIViewController, PollCollectionViewCellDelegate {
         containerView.layer.cornerRadius = 20
         containerView.clipsToBounds = true
         containerView.heightAnchor.constraint(equalToConstant: 78).isActive = true
+        containerView.accessibilityIdentifier = "activePollLabel"
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
         let activePollLabel = UILabel()
         activePollLabel.font = UIFont.boldSystemFont(ofSize: 20)
         activePollLabel.text = "\(viewModel.numberOfPosts) Active Polls"
+        activePollLabel.accessibilityIdentifier = "activePollLabel"
         activePollLabel.textColor = .white
         activePollLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let detailsLabel = UILabel()
         detailsLabel.text = "See Details"
+        detailsLabel.accessibilityIdentifier = "detailsLabel"
         detailsLabel.textColor = .lightGray
         detailsLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -95,6 +101,7 @@ class DiscoverViewController: UIViewController, PollCollectionViewCellDelegate {
         
         let detailIcon = UIImageView()
         detailIcon.image = UIImage(systemName: "arrow.right.square.fill")
+        detailIcon.accessibilityIdentifier = "detailIcon"
         detailIcon.tintColor = .white
         detailIcon.heightAnchor.constraint(equalToConstant: 33).isActive = true
         detailIcon.widthAnchor.constraint(equalToConstant: 33).isActive = true
@@ -113,6 +120,7 @@ class DiscoverViewController: UIViewController, PollCollectionViewCellDelegate {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PollCollectionViewCell.self, forCellWithReuseIdentifier: "PollCollectionViewCell")
         collectionView.backgroundColor = .clear
+        collectionView.accessibilityIdentifier = "postsCollectionView"
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -212,7 +220,7 @@ extension DiscoverViewController: UICollectionViewDelegate, UICollectionViewData
         let sectionInsets = self.collectionView(collectionView, layout: collectionViewLayout, insetForSectionAt: indexPath.section)
         let contentInsets = collectionView.contentInset
         let width = collectionView.bounds.width - sectionInsets.left - sectionInsets.right - contentInsets.left - contentInsets.right
-        return .init(width: width, height: 330)
+        return .init(width: width, height: 340)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
