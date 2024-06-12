@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5C5EF9F42C1776AB00EDCF6D /* PollCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */; };
+		5C65E4B82C19B6B8005D7942 /* PollCollectionViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C65E4B72C19B6B8005D7942 /* PollCollectionViewUITests.swift */; };
 		5C7D5FF72C18C7830059BFDD /* DiscoverViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C7D5FF62C18C7830059BFDD /* DiscoverViewModelTests.swift */; };
+		5C9ADC732C199B9E003299E1 /* DiscoverViewControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C9ADC722C199B9E003299E1 /* DiscoverViewControllerUITests.swift */; };
 		5CA006B72C1905FF00A43E20 /* PollCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CA006B62C1905FF00A43E20 /* PollCollectionViewModelTests.swift */; };
 		5CB92DC72C10F0B70002C659 /* PollCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC62C10F0B70002C659 /* PollCollectionViewCell.swift */; };
 		5CB92DCA2C10F1BE0002C659 /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */; };
@@ -32,12 +34,22 @@
 			remoteGlobalIDString = 6E3A35FD2BF2563400ECE78C;
 			remoteInfo = Pollexa;
 		};
+		5C9ADC762C199B9E003299E1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6E3A35F62BF2563400ECE78C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6E3A35FD2BF2563400ECE78C;
+			remoteInfo = Pollexa;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		5C5EF9F32C1776AB00EDCF6D /* PollCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewModel.swift; sourceTree = "<group>"; };
+		5C65E4B72C19B6B8005D7942 /* PollCollectionViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewUITests.swift; sourceTree = "<group>"; };
 		5C7D5FF42C18C7830059BFDD /* DiscoverViewModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiscoverViewModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5C7D5FF62C18C7830059BFDD /* DiscoverViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModelTests.swift; sourceTree = "<group>"; };
+		5C9ADC702C199B9E003299E1 /* DiscoverViewControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DiscoverViewControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C9ADC722C199B9E003299E1 /* DiscoverViewControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewControllerUITests.swift; sourceTree = "<group>"; };
 		5CA006B62C1905FF00A43E20 /* PollCollectionViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewModelTests.swift; sourceTree = "<group>"; };
 		5CB92DC62C10F0B70002C659 /* PollCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollCollectionViewCell.swift; sourceTree = "<group>"; };
 		5CB92DC92C10F1BE0002C659 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverViewModel.swift; sourceTree = "<group>"; };
@@ -63,6 +75,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C9ADC6D2C199B9E003299E1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6E3A35FB2BF2563400ECE78C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -80,6 +99,15 @@
 				5CA006B62C1905FF00A43E20 /* PollCollectionViewModelTests.swift */,
 			);
 			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		5C9ADC712C199B9E003299E1 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+				5C9ADC722C199B9E003299E1 /* DiscoverViewControllerUITests.swift */,
+				5C65E4B72C19B6B8005D7942 /* PollCollectionViewUITests.swift */,
+			);
+			path = UITests;
 			sourceTree = "<group>";
 		};
 		5CB92DC52C10F08C0002C659 /* Cells */ = {
@@ -104,6 +132,7 @@
 			children = (
 				6E3A36002BF2563400ECE78C /* Pollexa */,
 				5C7D5FF52C18C7830059BFDD /* UnitTests */,
+				5C9ADC712C199B9E003299E1 /* UITests */,
 				6E3A35FF2BF2563400ECE78C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -113,6 +142,7 @@
 			children = (
 				6E3A35FE2BF2563400ECE78C /* Pollexa.app */,
 				5C7D5FF42C18C7830059BFDD /* DiscoverViewModelTests.xctest */,
+				5C9ADC702C199B9E003299E1 /* DiscoverViewControllerUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,6 +252,24 @@
 			productReference = 5C7D5FF42C18C7830059BFDD /* DiscoverViewModelTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		5C9ADC6F2C199B9E003299E1 /* DiscoverViewControllerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5C9ADC782C199B9E003299E1 /* Build configuration list for PBXNativeTarget "DiscoverViewControllerUITests" */;
+			buildPhases = (
+				5C9ADC6C2C199B9E003299E1 /* Sources */,
+				5C9ADC6D2C199B9E003299E1 /* Frameworks */,
+				5C9ADC6E2C199B9E003299E1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5C9ADC772C199B9E003299E1 /* PBXTargetDependency */,
+			);
+			name = DiscoverViewControllerUITests;
+			productName = DiscoverViewControllerUITests;
+			productReference = 5C9ADC702C199B9E003299E1 /* DiscoverViewControllerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		6E3A35FD2BF2563400ECE78C /* Pollexa */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E3A36122BF2563500ECE78C /* Build configuration list for PBXNativeTarget "Pollexa" */;
@@ -253,6 +301,10 @@
 						CreatedOnToolsVersion = 15.4;
 						TestTargetID = 6E3A35FD2BF2563400ECE78C;
 					};
+					5C9ADC6F2C199B9E003299E1 = {
+						CreatedOnToolsVersion = 15.4;
+						TestTargetID = 6E3A35FD2BF2563400ECE78C;
+					};
 					6E3A35FD2BF2563400ECE78C = {
 						CreatedOnToolsVersion = 15.3;
 					};
@@ -273,12 +325,20 @@
 			targets = (
 				6E3A35FD2BF2563400ECE78C /* Pollexa */,
 				5C7D5FF32C18C7830059BFDD /* DiscoverViewModelTests */,
+				5C9ADC6F2C199B9E003299E1 /* DiscoverViewControllerUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		5C7D5FF22C18C7830059BFDD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5C9ADC6E2C199B9E003299E1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -307,6 +367,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5C9ADC6C2C199B9E003299E1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5C65E4B82C19B6B8005D7942 /* PollCollectionViewUITests.swift in Sources */,
+				5C9ADC732C199B9E003299E1 /* DiscoverViewControllerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6E3A35FA2BF2563400ECE78C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -331,6 +400,11 @@
 			isa = PBXTargetDependency;
 			target = 6E3A35FD2BF2563400ECE78C /* Pollexa */;
 			targetProxy = 5C7D5FF82C18C7830059BFDD /* PBXContainerItemProxy */;
+		};
+		5C9ADC772C199B9E003299E1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6E3A35FD2BF2563400ECE78C /* Pollexa */;
+			targetProxy = 5C9ADC762C199B9E003299E1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -387,6 +461,40 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Pollexa.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Pollexa";
+			};
+			name = Release;
+		};
+		5C9ADC792C199B9E003299E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.sevenapps.Pollexa.DiscoverViewControllerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Pollexa;
+			};
+			name = Debug;
+		};
+		5C9ADC7A2C199B9E003299E1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.sevenapps.Pollexa.DiscoverViewControllerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Pollexa;
 			};
 			name = Release;
 		};
@@ -577,6 +685,15 @@
 			buildConfigurations = (
 				5C7D5FFA2C18C7830059BFDD /* Debug */,
 				5C7D5FFB2C18C7830059BFDD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5C9ADC782C199B9E003299E1 /* Build configuration list for PBXNativeTarget "DiscoverViewControllerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5C9ADC792C199B9E003299E1 /* Debug */,
+				5C9ADC7A2C199B9E003299E1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -32,9 +32,22 @@ class PollCollectionViewCell: UICollectionViewCell {
     lazy var postContentLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 0)
     lazy var optionImageView = createCustomImageView(cornerRadius: 12)
     lazy var optionImageView1 = createCustomImageView(cornerRadius: 12)
-    lazy var totalVotesLabel = createCustomLabel(font: UIFont.systemFont(ofSize: 12), numOfLines: 1)
-    lazy var percentageLabel = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 1)
-    lazy var percentageLabel1 = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 1)
+    lazy var percentageLabel: UILabel = {
+        let label = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 1)
+        label.accessibilityIdentifier = "percentageLabel"
+        return label
+    }()
+    lazy var percentageLabel1: UILabel = {
+        let label = createCustomLabel(font: UIFont.boldSystemFont(ofSize: 14), numOfLines: 1)
+        label.accessibilityIdentifier = "percentageLabel1"
+        return label
+    }()
+    lazy var totalVotesLabel: UILabel = {
+        let label = createCustomLabel(font: UIFont.systemFont(ofSize: 12), numOfLines: 1)
+        label.accessibilityIdentifier = "totalVotesLabel"
+        return label
+    }()
+
     
     // Stack views to organize the UI elements
     lazy var userInfoStackView: UIStackView = {
@@ -176,6 +189,7 @@ class PollCollectionViewCell: UICollectionViewCell {
         let button = UIButton()
         button.setImage(UIImage(systemName: "hand.thumbsup.fill"), for: .normal)
         button.addTarget(self, action: isFirstOption ? #selector(voteButtonTapped1) : #selector(voteButtonTapped2), for: .touchUpInside)
+        button.accessibilityIdentifier = isFirstOption ? "voteButton1" : "voteButton2"
         button.backgroundColor = .white
         button.layer.cornerRadius = 15
         button.clipsToBounds = true

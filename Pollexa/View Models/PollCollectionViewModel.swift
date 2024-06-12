@@ -65,8 +65,6 @@ class PollCollectionViewModel {
     // MARK: Calculations
     func getOptionPercentage(option: Int) -> Int {
         guard totalVotes > 0 else {return 0}
-//        return option == 1 ? (votesForOption1 * 100) / totalVotes : (votesForOption2 * 100) / totalVotes
-        guard totalVotes > 0 else { return 0 }
         if option == 1 {
             return (votesForOption1 * 100) / totalVotes
         } else {
